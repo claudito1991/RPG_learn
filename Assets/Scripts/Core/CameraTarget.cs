@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTarget : MonoBehaviour
+
+namespace RPG.Core
+{
+    public class CameraTarget : MonoBehaviour
 {
     [SerializeField] GameObject target;
      // Start is called before the first frame update
@@ -14,4 +17,6 @@ public class CameraTarget : MonoBehaviour
     {
         transform.position = target.transform.position; 
     }
+}
+
 }

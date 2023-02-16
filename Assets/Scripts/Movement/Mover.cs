@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mover : MonoBehaviour
+namespace RPG.Movement
+
+{
+    public class Mover : MonoBehaviour
 {
     private NavMeshAgent agent;
     Ray lastRay;
@@ -25,10 +28,6 @@ public class Mover : MonoBehaviour
         //     
         // }
 
-        if(Input.GetMouseButton(0))
-        {
-            MoveToCursor();
-        }
 
         UpdateAnimation();
 
@@ -46,16 +45,12 @@ public class Mover : MonoBehaviour
         GetComponent<Animator>().SetFloat("forwardSpeed",speed);
     }
 
-    private void MoveToCursor()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        bool hasHit = Physics.Raycast(ray, out hit);
 
-        if(hasHit)
-        {
-            agent.SetDestination(hit.point);
-        }
-        
+
+    public void MoveTo(Vector3 destination)
+    {
+        agent.SetDestination(destination);
     }
 }
+}
+
