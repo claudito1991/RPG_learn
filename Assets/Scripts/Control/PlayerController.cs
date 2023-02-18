@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using System;
 
 namespace RPG.Control
 {
@@ -17,21 +18,45 @@ namespace RPG.Control
     // Update is called once per frame
     void Update()
         {
+            if(InteractWithCombat()) return;
+            if(InteractWithNothing()) return;
             InteractWithMovement();
-            InteractWithCombat();
+            
+            
 
         }
 
-        private void InteractWithCombat()
+        private bool InteractWithNothing()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+
+            if(hits.Length == 0)
+            {
+                Debug.Log("Nothing to interact");
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
-                if (hit.transform.GetComponent<CombatTarget>())
+                CombatTarget target = hit.transform.GetComponent<CombatTarget>(); 
+                if ( target == null) continue;
+                
+                if(Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log(hit.transform);
+                    GetComponent<Fighter>().Attack(target);
+                    
                 }
+                return true;
+
             }
+            return false;
+
         }
 
         private void InteractWithMovement()
