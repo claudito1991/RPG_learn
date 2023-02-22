@@ -18,11 +18,10 @@ namespace RPG.Control
     // Update is called once per frame
     void Update()
         {
+            
             if(InteractWithCombat()) return;
             if(InteractWithNothing()) return;
             InteractWithMovement();
-            
-            
 
         }
 
@@ -61,6 +60,7 @@ namespace RPG.Control
 
         private void InteractWithMovement()
         {
+    
             if (Input.GetMouseButton(0))
             {
                 MoveToCursor();
@@ -75,7 +75,8 @@ namespace RPG.Control
 
             if (hasHit)
             {
-                GetComponent<Mover>().MoveTo(hit.point);
+                GetComponent<Mover>().StartMoveAction(hit.point);
+                
             }
 
         }
