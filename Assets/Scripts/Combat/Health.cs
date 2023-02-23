@@ -13,6 +13,19 @@ namespace RPG.Combat
                 health -= damage;
                 print(health);
             }
+            else
+            {
+                health = 0;
+            }
+            if(health == 0)
+            {
+                GetComponent<Animator>().SetTrigger("death");
+            }
+        }
+
+        void Update()
+        {
+
         }
     }
 }
