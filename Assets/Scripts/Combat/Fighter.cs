@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using RPG.Movement;
 using RPG.Core;
+using System;
 
 namespace RPG.Combat
 {
@@ -13,6 +14,8 @@ namespace RPG.Combat
 
         float timeSinceLastAttack;
         private Transform targetTransform;
+        private float weaponDamage = 5f;
+
         void Update()
         {
             timeSinceLastAttack +=Time.deltaTime;
@@ -33,11 +36,22 @@ namespace RPG.Combat
         {
             if(timeSinceLastAttack>= timeBetweenAttacks)
             {
+               //This will trigger the Hit() event
                 GetComponent<Animator>().SetTrigger("attack");
                 timeSinceLastAttack=0f;
+
+
             }
 
         }
+         //Attack hit event driven by animation
+        private void Hit()
+        {
+            Health healthComponent = targetTransform.GetComponent<Health>();
+            healthComponent.TakeDamage(weaponDamage);
+        }
+
+
 
         private bool GetIsInRange()
         {
@@ -55,9 +69,6 @@ namespace RPG.Combat
             targetTransform = null;
         }
 
-        private void Hit()
-        {
-            
-        }
+
     }
 }

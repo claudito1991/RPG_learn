@@ -50,6 +50,8 @@ namespace RPG.Movement
         agent.isStopped = false;
     }
 
+
+
     public void Cancel()
     {
         agent.isStopped = true;
