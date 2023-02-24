@@ -21,6 +21,7 @@ namespace RPG.Combat
             timeSinceLastAttack +=Time.deltaTime;
             if(target ==null) return;
             if(target.IsDead()) return;
+            
             if (!GetIsInRange())
             {
                 GetComponent<Mover>().MoveTo(target.transform.position);
@@ -35,6 +36,7 @@ namespace RPG.Combat
 
         private void AttackBehaviour()
         {
+            transform.LookAt(target.transform.position);
             if(timeSinceLastAttack>= timeBetweenAttacks)
             {
                //This will trigger the Hit() event
@@ -44,6 +46,13 @@ namespace RPG.Combat
 
             }
 
+        }
+
+        public bool CanAttack(CombatTarget combatTarget)
+        {
+            if(combatTarget == null) return false;
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return targetToTest != null && !targetToTest.IsDead();
         }
          //Attack hit event driven by animation
         private void Hit()
