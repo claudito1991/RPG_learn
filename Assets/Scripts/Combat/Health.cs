@@ -4,28 +4,31 @@ namespace RPG.Combat
     
     public class Health : MonoBehaviour
     {
-        [SerializeField] float health= 100f;
+        [SerializeField] float healthPoints= 100f;
+        bool isDead = false;
 
+        //Simple way of other classes to know the state of isDead bool that is private
+        public bool IsDead()
+        {
+            return isDead;
+        }
         public void TakeDamage (float damage)
         {
-            if(health > 0)
+
+            healthPoints = Mathf.Max(healthPoints-damage,0);
+            if(healthPoints==0)
             {
-                health -= damage;
-                print(health);
+                TriggerDeadAnimation();
             }
-            else
-            {
-                health = 0;
-            }
-            if(health == 0)
-            {
-                GetComponent<Animator>().SetTrigger("death");
-            }
+            print(healthPoints);
+
         }
 
-        void Update()
+        void TriggerDeadAnimation()
         {
-
+            if(isDead) return;
+            isDead=true;
+            GetComponent<Animator>().SetTrigger("death");
         }
     }
 }
