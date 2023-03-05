@@ -18,7 +18,9 @@ namespace RPG.Combat
 
         void Update()
         {
+
             timeSinceLastAttack +=Time.deltaTime;
+            print("time since last attack: " + timeSinceLastAttack);
             if(target ==null) return;
             if(target.IsDead()) return;
             
@@ -42,7 +44,6 @@ namespace RPG.Combat
                //This will trigger the Hit() event
                 GetComponent<Animator>().SetTrigger("attack");
                 timeSinceLastAttack=0f;
-
 
             }
 

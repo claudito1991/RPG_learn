@@ -20,7 +20,7 @@ namespace RPG.Combat
             {
                 TriggerDeadAnimation();
             }
-            print(healthPoints);
+            //print(healthPoints);
 
         }
 
